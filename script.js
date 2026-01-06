@@ -3,29 +3,112 @@ document.addEventListener('DOMContentLoaded', function() {
     const mobileMenu = document.getElementById('mobile-menu');
     const navMenu = document.querySelector('.nav-menu');
 
-    mobileMenu.addEventListener('click', function() {
-        mobileMenu.classList.toggle('active');
-        navMenu.classList.toggle('active');
-    });
-
-    // Close mobile menu when clicking on a nav link
-    const navLinks = document.querySelectorAll('.nav-link');
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            mobileMenu.classList.remove('active');
-            navMenu.classList.remove('active');
+    if (mobileMenu && navMenu) {
+        mobileMenu.addEventListener('click', function() {
+            mobileMenu.classList.toggle('active');
+            navMenu.classList.toggle('active');
         });
-    });
 
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', function(event) {
-        const isClickInsideNav = navMenu.contains(event.target) || mobileMenu.contains(event.target);
-        if (!isClickInsideNav && navMenu.classList.contains('active')) {
-            mobileMenu.classList.remove('active');
-            navMenu.classList.remove('active');
-        }
-    });
+        // Close mobile menu when clicking on a nav link
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const isClickInsideNav = navMenu.contains(event.target) || mobileMenu.contains(event.target);
+            if (!isClickInsideNav && navMenu.classList.contains('active')) {
+                mobileMenu.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+    }
 });
+
+// Secret Code Validation
+function checkSecretCode() {
+    const codeInput = document.getElementById('secretCode');
+    const secretSection = document.getElementById('secretSection');
+    const errorMessage = document.getElementById('errorMessage');
+    
+    const enteredCode = codeInput.value.trim();
+    
+    if (enteredCode === '1234') {
+        // Code correct
+        secretSection.style.display = 'block';
+        errorMessage.style.display = 'none';
+        codeInput.disabled = true;
+        
+        // Scroll to secret section
+        secretSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        // Show success animation
+        setTimeout(() => {
+            secretSection.style.animation = 'fadeInSecret 1s ease-in-out';
+        }, 100);
+        
+        // Disable input and button
+        document.querySelector('.code-button').disabled = true;
+        document.querySelector('.code-button').textContent = 'Activé ✓';
+        document.querySelector('.code-button').style.background = '#4caf50';
+        
+    } else {
+        // Code incorrect
+        errorMessage.style.display = 'block';
+        errorMessage.textContent = 'Code incorrect! Essayez encore.';
+        
+        // Shake animation for input
+        codeInput.style.animation = 'shake 0.5s ease-in-out';
+        setTimeout(() => {
+            codeInput.style.animation = '';
+        }, 500);
+        
+        // Clear input
+        codeInput.value = '';
+        codeInput.focus();
+    }
+}
+
+// Format input to only allow numbers
+document.addEventListener('DOMContentLoaded', function() {
+    const codeInput = document.getElementById('secretCode');
+    
+    if (codeInput) {
+        codeInput.addEventListener('input', function(e) {
+            // Remove non-numeric characters
+            this.value = this.value.replace(/[^0-9]/g, '');
+            
+            // Auto-validate when 4 digits are entered
+            if (this.value.length === 4) {
+                setTimeout(() => {
+                    checkSecretCode();
+                }, 300);
+            }
+        });
+        
+        // Allow Enter key to validate
+        codeInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkSecretCode();
+            }
+        });
+    }
+});
+
+// Add shake animation CSS
+const shakeStyle = document.createElement('style');
+shakeStyle.textContent = `
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-10px); }
+        75% { transform: translateX(10px); }
+    }
+`;
+document.head.appendChild(shakeStyle);
 
 // Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
