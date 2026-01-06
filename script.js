@@ -31,11 +31,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Secret Code Validation
 function checkSecretCode() {
+    console.log('Fonction checkSecretCode appelée'); // Debug
     const codeInput = document.getElementById('secretCode');
     const secretSection = document.getElementById('secretSection');
     const errorMessage = document.getElementById('errorMessage');
     
+    if (!codeInput || !secretSection || !errorMessage) {
+        console.error('Éléments non trouvés');
+        return;
+    }
+    
     const enteredCode = codeInput.value.trim();
+    console.log('Code saisi:', enteredCode); // Debug
     
     if (enteredCode === '1234') {
         // Code correct
@@ -52,9 +59,12 @@ function checkSecretCode() {
         }, 100);
         
         // Disable input and button
-        document.querySelector('.code-button').disabled = true;
-        document.querySelector('.code-button').textContent = 'Activé ✓';
-        document.querySelector('.code-button').style.background = '#4caf50';
+        const codeButton = document.querySelector('.code-button');
+        if (codeButton) {
+            codeButton.disabled = true;
+            codeButton.textContent = 'Activé ✓';
+            codeButton.style.background = '#4caf50';
+        }
         
     } else {
         // Code incorrect
