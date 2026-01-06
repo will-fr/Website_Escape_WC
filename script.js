@@ -29,96 +29,135 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Secret Code Validation
-function checkSecretCode() {
-    console.log('Fonction checkSecretCode appelée'); // Debug
-    const codeInput = document.getElementById('secretCode');
-    const secretSection = document.getElementById('secretSection');
-    const errorMessage = document.getElementById('errorMessage');
+// Secret Code Validation - Version compatible GitHub Pages
+window.checkSecretCode = function() {
+    console.log('Fonction checkSecretCode appelée');
+    
+    var codeInput = document.getElementById('secretCode');
+    var secretSection = document.getElementById('secretSection');
+    var errorMessage = document.getElementById('errorMessage');
     
     if (!codeInput || !secretSection || !errorMessage) {
-        console.error('Éléments non trouvés');
+        console.error('Éléments DOM non trouvés');
         return;
     }
     
-    const enteredCode = codeInput.value.trim();
-    console.log('Code saisi:', enteredCode); // Debug
+    var enteredCode = codeInput.value.replace(/\s/g, ''); // Enlever espaces
+    console.log('Code saisi:', enteredCode);
     
     if (enteredCode === '1234') {
+        console.log('Code correct!');
         // Code correct
         secretSection.style.display = 'block';
         errorMessage.style.display = 'none';
         codeInput.disabled = true;
         
-        // Scroll to secret section
-        secretSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // Scroll vers section secrète
+        if (secretSection.scrollIntoView) {
+            secretSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
         
-        // Show success animation
-        setTimeout(() => {
+        // Animation de succès
+        setTimeout(function() {
+            secretSection.style.webkitAnimation = 'fadeInSecret 1s ease-in-out';
+            secretSection.style.mozAnimation = 'fadeInSecret 1s ease-in-out';
             secretSection.style.animation = 'fadeInSecret 1s ease-in-out';
         }, 100);
         
-        // Disable input and button
-        const codeButton = document.querySelector('.code-button');
+        // Désactiver input et bouton
+        var codeButton = document.querySelector('.code-button');
         if (codeButton) {
             codeButton.disabled = true;
             codeButton.textContent = 'Activé ✓';
             codeButton.style.background = '#4caf50';
+            codeButton.style.webkitTransform = 'none';
+            codeButton.style.mozTransform = 'none';
+            codeButton.style.transform = 'none';
         }
         
     } else {
+        console.log('Code incorrect');
         // Code incorrect
         errorMessage.style.display = 'block';
         errorMessage.textContent = 'Code incorrect! Essayez encore.';
         
-        // Shake animation for input
+        // Animation de secousse
+        codeInput.style.webkitAnimation = 'shake 0.5s ease-in-out';
+        codeInput.style.mozAnimation = 'shake 0.5s ease-in-out';
         codeInput.style.animation = 'shake 0.5s ease-in-out';
-        setTimeout(() => {
+        
+        setTimeout(function() {
+            codeInput.style.webkitAnimation = '';
+            codeInput.style.mozAnimation = '';
             codeInput.style.animation = '';
         }, 500);
         
-        // Clear input
+        // Vider le champ
         codeInput.value = '';
-        codeInput.focus();
+        if (codeInput.focus) {
+            codeInput.focus();
+        }
     }
-}
+};
 
-// Format input to only allow numbers
+// Gestionnaire d'événements pour l'input de code
 document.addEventListener('DOMContentLoaded', function() {
-    const codeInput = document.getElementById('secretCode');
+    console.log('DOM chargé, initialisation...');
     
+    var codeInput = document.getElementById('secretCode');
     if (codeInput) {
+        console.log('Input trouvé, ajout des événements...');
+        
+        // Gestionnaire pour filtrer les non-chiffres
         codeInput.addEventListener('input', function(e) {
-            // Remove non-numeric characters
+            // Supprimer tout ce qui n'est pas un chiffre
             this.value = this.value.replace(/[^0-9]/g, '');
             
-            // Auto-validate when 4 digits are entered
+            // Auto-validation à 4 chiffres
             if (this.value.length === 4) {
-                setTimeout(() => {
-                    checkSecretCode();
+                setTimeout(function() {
+                    window.checkSecretCode();
                 }, 300);
             }
         });
         
-        // Allow Enter key to validate
+        // Gestionnaire pour touche Entrée
         codeInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                checkSecretCode();
+            if (e.key === 'Enter' || e.keyCode === 13) {
+                e.preventDefault();
+                window.checkSecretCode();
             }
         });
+        
+        // Gestionnaire pour coller du texte
+        codeInput.addEventListener('paste', function(e) {
+            var self = this;
+            setTimeout(function() {
+                self.value = self.value.replace(/[^0-9]/g, '');
+                if (self.value.length > 4) {
+                    self.value = self.value.substring(0, 4);
+                }
+                if (self.value.length === 4) {
+                    window.checkSecretCode();
+                }
+            }, 10);
+        });
+    } else {
+        console.error('Input secretCode non trouvé!');
     }
+    
+    // Vérifier si tous les éléments sont présents
+    var secretSection = document.getElementById('secretSection');
+    var errorMessage = document.getElementById('errorMessage');
+    
+    if (!secretSection) console.error('secretSection non trouvé!');
+    if (!errorMessage) console.error('errorMessage non trouvé!');
 });
 
-// Add shake animation CSS
-const shakeStyle = document.createElement('style');
-shakeStyle.textContent = `
-    @keyframes shake {
-        0%, 100% { transform: translateX(0); }
-        25% { transform: translateX(-10px); }
-        75% { transform: translateX(10px); }
-    }
-`;
-document.head.appendChild(shakeStyle);
+// Supprimer l'ancien code d'ajout de CSS shake
+// Le CSS shake est maintenant directement dans styles.css
+
+console.log('Script Spy4Rent chargé avec succès!');
 
 // Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
