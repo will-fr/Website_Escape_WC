@@ -1,5 +1,11 @@
+// Fonctions d'obfuscation globales
+var _0x1a2b = function(n) { return String.fromCharCode(n + 48); };
+var _0x3c4d = [4, 8, 2];
+var _0x5e6f = function() { return _0x3c4d.map(_0x1a2b).join(''); };
+
 // Mobile Menu Toggle
 document.addEventListener('DOMContentLoaded', function() {
+
     const mobileMenu = document.getElementById('mobile-menu');
     const navMenu = document.querySelector('.nav-menu');
 
@@ -47,8 +53,21 @@ window.checkSecretCode = function() {
     var enteredCode = digit1.value + digit2.value + digit3.value;
     console.log('Code saisi:', enteredCode);
     
-    if (enteredCode === '123') {
-        console.log('Code correct!');
+    // Validation obfusquée - multiples méthodes
+    var method1 = String.fromCharCode(52, 56, 50);
+    var method2 = String((240 * 2) + 2);
+    var method3 = [4, 8, 2].join('');
+    var method4 = _0x5e6f();
+    var method5 = atob('NDgy');  // base64 de "482"
+    
+    console.log('Methods debug:', {method1, method2, method3, method4, method5});
+    console.log('Entered code type:', typeof enteredCode, 'Value:', enteredCode);
+    
+    var isValid = [method1, method2, method3, method4, method5].includes(enteredCode);
+    console.log('Is valid:', isValid);
+    
+    if (isValid) {
+        console.log('Access granted!');
         
         // Lancer l'effet de confetti
         console.log('Lancement du confetti...');
@@ -541,19 +560,19 @@ function launchConfetti() {
     document.body.appendChild(confettiContainer);
     console.log('Conteneur de confetti créé et ajouté au DOM');
     
-    // Créer 30 confetti (nombre réduit pour les mobiles)
-    for (let i = 0; i < 30; i++) {
+    // Créer 90 confetti (nombre augmenté pour plus d'effet)
+    for (let i = 0; i < 90; i++) {
         createConfetti(confettiContainer, colors);
     }
-    console.log('30 confetti créés');
+    console.log('90 confetti créés');
     
-    // Nettoyer après 4 secondes
+    // Nettoyer après 8 secondes
     setTimeout(() => {
         if (confettiContainer.parentNode) {
             confettiContainer.parentNode.removeChild(confettiContainer);
-            console.log('Confetti nettoyé après 4 secondes');
+            console.log('Confetti nettoyé après 8 secondes');
         }
-    }, 4000);
+    }, 8000);
 }
 
 function createConfetti(container, colors) {
@@ -566,8 +585,8 @@ function createConfetti(container, colors) {
     
     // Position et timing aléatoires
     confetti.style.left = Math.random() * 100 + '%';
-    confetti.style.animationDelay = Math.random() * 2 + 's';
-    confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+    confetti.style.animationDelay = Math.random() * 4 + 's';
+    confetti.style.animationDuration = (Math.random() * 6 + 4) + 's';
     
     // Forme aléatoire (carré ou rectangle)
     if (Math.random() > 0.5) {
