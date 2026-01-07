@@ -80,6 +80,8 @@ body {
     list-style: none;
     margin-bottom: 2rem;
     padding: 0;
+    text-align: left;
+    max-width: 600px;
 }
 
 .content ul li {
