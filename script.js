@@ -415,6 +415,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+// Typing effect removed - commented out
+/*
 // Typing effect for hero title
 document.addEventListener('DOMContentLoaded', function() {
     const heroTitle = document.querySelector('.hero-title');
@@ -435,6 +437,7 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(typeWriter, 500);
     }
 });
+*/
 
 // Console easter egg
 console.log(`
@@ -453,15 +456,6 @@ console.log(`
     
     Remember: This is a fictional agency for demo purposes only!
 `);
-
-// Add some fun interactions
-let clickCount = 0;
-document.addEventListener('click', function() {
-    clickCount++;
-    if (clickCount === 10) {
-        showAlert('🕵️ Secret Agent mode activated! Welcome to the inner circle.', 'success');
-    }
-});
 
 // Performance optimization: Lazy loading for images
 if ('IntersectionObserver' in window) {

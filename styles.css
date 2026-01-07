@@ -9,7 +9,7 @@ body {
     font-family: 'Arial', sans-serif;
     line-height: 1.6;
     color: #333;
-    background-color: #0f0f0f;
+    background-color: #000000;
     overflow-x: hidden;
 }
 
@@ -21,7 +21,7 @@ body {
 
 /* Hero Section */
 .hero {
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+    background: #000000;
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -30,12 +30,23 @@ body {
     text-align: center;
 }
 
+.hero-logo {
+    max-width: 300px;
+    height: auto;
+    margin-bottom: 2rem;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.hero-logo:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 6px 12px rgba(255, 107, 53, 0.5));
+}
+
 .hero-title {
     font-size: 4rem;
     font-weight: bold;
     color: #ff6b35;
     margin-bottom: 3rem;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
 .content {
@@ -88,6 +99,88 @@ body {
 .content ul li a:hover {
     color: #fff;
     text-decoration: underline;
+}
+
+/* Jean Bombeur Section */
+.jean-bombeur {
+    background: linear-gradient(135deg, #8B0000 0%, #DC143C 50%, #B22222 100%);
+    border: 2px solid #FF6347;
+    border-radius: 10px;
+    padding: 2rem;
+    margin: 3rem 0;
+    box-shadow: 0 4px 15px rgba(220, 20, 60, 0.3);
+}
+
+.jean-bombeur h2 {
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+    margin-bottom: 1.5rem;
+    font-size: 2.2rem;
+}
+
+.jean-bombeur p {
+    color: #fff !important;
+    font-size: 1.3rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    font-weight: 500;
+}
+
+/* Jeanne Hémard Section */
+.jeanne-hemard {
+    background: linear-gradient(135deg, #8B008B 0%, #DA70D6 50%, #BA55D3 100%);
+    border: 2px solid #FF69B4;
+    border-radius: 10px;
+    padding: 2rem;
+    margin: 3rem 0;
+    box-shadow: 0 4px 15px rgba(218, 112, 214, 0.3);
+}
+
+.jeanne-hemard h2 {
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+    margin-bottom: 1.5rem;
+    font-size: 2.2rem;
+}
+
+.jeanne-hemard p {
+    color: #fff !important;
+    font-size: 1.3rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    font-weight: 500;
+}
+
+/* Gérard Mentor Section */
+.gerard-mentor {
+    background: linear-gradient(135deg, #006400 0%, #32CD32 50%, #228B22 100%);
+    border: 2px solid #00FF00;
+    border-radius: 10px;
+    padding: 2rem;
+    margin: 3rem 0;
+    box-shadow: 0 4px 15px rgba(50, 205, 50, 0.3);
+}
+
+.gerard-mentor h2 {
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+    margin-bottom: 1.5rem;
+    font-size: 2.2rem;
+}
+
+.gerard-mentor p {
+    color: #fff !important;
+    font-size: 1.3rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    font-weight: 500;
+}
+
+.agent-image {
+    max-width: 200px;
+    height: auto;
+    display: block;
+    margin: 1rem auto;
+    border-radius: 8px;
+    border: 3px solid #fff;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.4);
 }
 
 /* Code Input Section */
