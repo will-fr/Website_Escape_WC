@@ -33,24 +33,33 @@ document.addEventListener('DOMContentLoaded', function() {
 window.checkSecretCode = function() {
     console.log('Fonction checkSecretCode appelée');
     
-    var codeInput = document.getElementById('secretCode');
+    var digit1 = document.getElementById('digit1');
+    var digit2 = document.getElementById('digit2');
+    var digit3 = document.getElementById('digit3');
     var secretSection = document.getElementById('secretSection');
     var errorMessage = document.getElementById('errorMessage');
     
-    if (!codeInput || !secretSection || !errorMessage) {
+    if (!digit1 || !digit2 || !digit3 || !secretSection || !errorMessage) {
         console.error('Éléments DOM non trouvés');
         return;
     }
     
-    var enteredCode = codeInput.value.replace(/\s/g, ''); // Enlever espaces
+    var enteredCode = digit1.value + digit2.value + digit3.value;
     console.log('Code saisi:', enteredCode);
     
-    if (enteredCode === '1234') {
+    if (enteredCode === '123') {
         console.log('Code correct!');
+        
+        // Lancer l'effet de confetti
+        console.log('Lancement du confetti...');
+        launchConfetti();
+        
         // Code correct
         secretSection.style.display = 'block';
         errorMessage.style.display = 'none';
-        codeInput.disabled = true;
+        digit1.disabled = true;
+        digit2.disabled = true;
+        digit3.disabled = true;
         
         // Scroll vers section secrète
         if (secretSection.scrollIntoView) {
@@ -82,23 +91,71 @@ window.checkSecretCode = function() {
         errorMessage.textContent = 'Code incorrect! Essayez encore.';
         
         // Animation de secousse
-        codeInput.style.webkitAnimation = 'shake 0.5s ease-in-out';
-        codeInput.style.mozAnimation = 'shake 0.5s ease-in-out';
-        codeInput.style.animation = 'shake 0.5s ease-in-out';
+        [digit1, digit2, digit3].forEach(function(input) {
+            input.style.webkitAnimation = 'shake 0.5s ease-in-out';
+            input.style.mozAnimation = 'shake 0.5s ease-in-out';
+            input.style.animation = 'shake 0.5s ease-in-out';
+        });
         
         setTimeout(function() {
-            codeInput.style.webkitAnimation = '';
-            codeInput.style.mozAnimation = '';
-            codeInput.style.animation = '';
+            [digit1, digit2, digit3].forEach(function(input) {
+                input.style.webkitAnimation = '';
+                input.style.mozAnimation = '';
+                input.style.animation = '';
+            });
         }, 500);
         
-        // Vider le champ
-        codeInput.value = '';
-        if (codeInput.focus) {
-            codeInput.focus();
+        // Vider les champs
+        digit1.value = '';
+        digit2.value = '';
+        digit3.value = '';
+        if (digit1.focus) {
+            digit1.focus();
         }
     }
 };
+
+// Navigation automatique entre les champs de saisie
+document.addEventListener('DOMContentLoaded', function() {
+    const digit1 = document.getElementById('digit1');
+    const digit2 = document.getElementById('digit2');
+    const digit3 = document.getElementById('digit3');
+    
+    if (digit1 && digit2 && digit3) {
+        // Navigation vers le champ suivant
+        digit1.addEventListener('input', function() {
+            if (this.value.length === 1) {
+                digit2.focus();
+            }
+        });
+        
+        digit2.addEventListener('input', function() {
+            if (this.value.length === 1) {
+                digit3.focus();
+            }
+        });
+        
+        // Navigation avec backspace
+        digit2.addEventListener('keydown', function(e) {
+            if (e.key === 'Backspace' && this.value.length === 0) {
+                digit1.focus();
+            }
+        });
+        
+        digit3.addEventListener('keydown', function(e) {
+            if (e.key === 'Backspace' && this.value.length === 0) {
+                digit2.focus();
+            }
+        });
+        
+        // Validation automatique quand les 3 champs sont remplis
+        digit3.addEventListener('input', function() {
+            if (digit1.value && digit2.value && digit3.value) {
+                setTimeout(checkSecretCode, 200);
+            }
+        });
+    }
+});
 
 // Gestionnaire d'événements pour l'input de code
 document.addEventListener('DOMContentLoaded', function() {
@@ -473,4 +530,56 @@ if ('IntersectionObserver' in window) {
     document.querySelectorAll('img[data-src]').forEach(img => {
         imageObserver.observe(img);
     });
+}
+
+// Effet de confetti optimisé pour mobile
+function launchConfetti() {
+    console.log('LaunchConfetti appelé!');
+    const colors = ['#32CD32', '#DC143C', '#DA70D6', '#ff6b35'];
+    const confettiContainer = document.createElement('div');
+    confettiContainer.className = 'confetti-container';
+    document.body.appendChild(confettiContainer);
+    console.log('Conteneur de confetti créé et ajouté au DOM');
+    
+    // Créer 30 confetti (nombre réduit pour les mobiles)
+    for (let i = 0; i < 30; i++) {
+        createConfetti(confettiContainer, colors);
+    }
+    console.log('30 confetti créés');
+    
+    // Nettoyer après 4 secondes
+    setTimeout(() => {
+        if (confettiContainer.parentNode) {
+            confettiContainer.parentNode.removeChild(confettiContainer);
+            console.log('Confetti nettoyé après 4 secondes');
+        }
+    }, 4000);
+}
+
+function createConfetti(container, colors) {
+    const confetti = document.createElement('div');
+    confetti.className = 'confetti';
+    
+    // Couleur aléatoire
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    confetti.style.backgroundColor = color;
+    
+    // Position et timing aléatoires
+    confetti.style.left = Math.random() * 100 + '%';
+    confetti.style.animationDelay = Math.random() * 2 + 's';
+    confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+    
+    // Forme aléatoire (carré ou rectangle)
+    if (Math.random() > 0.5) {
+        confetti.style.width = '8px';
+        confetti.style.height = '8px';
+    } else {
+        confetti.style.width = '4px';
+        confetti.style.height = '12px';
+    }
+    
+    container.appendChild(confetti);
+    
+    // Rotation aléatoire
+    confetti.style.transform = 'rotate(' + (Math.random() * 360) + 'deg)';
 }

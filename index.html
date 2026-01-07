@@ -19,9 +19,9 @@
                     <h2>Comment nous rejoindre ?</h2>
                     <p>Les 3 agents à retrouver sont :</p>
                     <ul>
-                        <li><a href="#jean-bombeur">Jean Bombeur</a></li>
-                        <li><a href="#jeanne-hemard">Jeanne Hémard</a></li>
-                        <li><a href="#vincent-times">Gérard Mentor</a></li>
+                        <li><a href="#jean-bombeur" class="agent-link agent-red">Jean Bombeur</a></li>
+                        <li><a href="#jeanne-hemard" class="agent-link agent-pink">Jeanne Hémard</a></li>
+                        <li><a href="#gerard-mentor" class="agent-link agent-green">Gérard Mentor</a></li>
                     </ul>
 					<p>Une fois que vous aurez retrouvé leur trace, indiquez le code secret et rejoignez-nous!</p>
                     
@@ -44,8 +44,17 @@
                     </div>
                     
                     <h2>Saisie du code secret</h2>
+                    <div class="code-reminder">
+                        <span class="reminder-dot green-dot"></span>
+                        <span class="reminder-dot red-dot"></span>
+                        <span class="reminder-dot pink-dot"></span>
+                    </div>
                     <div class="code-input-container">
-                        <input type="text" id="secretCode" maxlength="4" pattern="[0-9]{4}" placeholder="0000" class="code-input">
+                        <div class="code-input-wrapper">
+                            <input type="text" id="digit1" maxlength="1" pattern="[0-9]" placeholder="0" class="code-digit green-digit">
+                            <input type="text" id="digit2" maxlength="1" pattern="[0-9]" placeholder="0" class="code-digit red-digit">
+                            <input type="text" id="digit3" maxlength="1" pattern="[0-9]" placeholder="0" class="code-digit pink-digit">
+                        </div>
                         <button onclick="checkSecretCode()" class="code-button">Valider</button>
                     </div>
                     <div id="errorMessage" class="error-message" style="display: none;">Code incorrect! Essayez encore.</div>

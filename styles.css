@@ -81,24 +81,66 @@ body {
     position: relative;
 }
 
-.content ul li:before {
-    content: "🔍";
-    position: absolute;
-    left: 0;
-    color: #ff6b35;
-}
-
 .content ul li a {
-    color: #ff6b35;
     text-decoration: none;
     font-weight: bold;
     font-size: 1.2rem;
     transition: color 0.3s ease;
+    position: relative;
+    padding-left: 2rem;
 }
 
 .content ul li a:hover {
-    color: #fff;
     text-decoration: underline;
+}
+
+/* Agent Link Colors */
+.agent-red {
+    color: #DC143C !important;
+}
+
+.agent-red:hover {
+    color: #B22222 !important;
+}
+
+.agent-pink {
+    color: #DA70D6 !important;
+}
+
+.agent-pink:hover {
+    color: #BA55D3 !important;
+}
+
+.agent-green {
+    color: #32CD32 !important;
+}
+
+.agent-green:hover {
+    color: #228B22 !important;
+}
+
+.agent-link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(0,0,0,0.3);
+}
+
+.agent-red::before {
+    background: linear-gradient(135deg, #DC143C, #B22222);
+}
+
+.agent-pink::before {
+    background: linear-gradient(135deg, #DA70D6, #BA55D3);
+}
+
+.agent-green::before {
+    background: linear-gradient(135deg, #32CD32, #228B22);
 }
 
 /* Jean Bombeur Section */
@@ -184,6 +226,33 @@ body {
 }
 
 /* Code Input Section */
+.code-reminder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem 0 2rem 0;
+}
+
+.reminder-dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.green-dot {
+    background: linear-gradient(135deg, #32CD32, #228B22);
+}
+
+.red-dot {
+    background: linear-gradient(135deg, #DC143C, #B22222);
+}
+
+.pink-dot {
+    background: linear-gradient(135deg, #DA70D6, #BA55D3);
+}
+
 .code-input-container {
     display: flex;
     justify-content: center;
@@ -191,6 +260,96 @@ body {
     gap: 1rem;
     margin: 2rem 0;
     flex-wrap: wrap;
+}
+
+.code-input-wrapper {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.code-digit {
+    width: 60px;
+    height: 60px;
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    border: 3px solid;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.green-digit {
+    border-color: #32CD32;
+    color: #32CD32;
+}
+
+.green-digit:focus {
+    border-color: #228B22;
+    box-shadow: 0 0 15px rgba(50, 205, 50, 0.5);
+    background: rgba(50, 205, 50, 0.1);
+}
+
+.red-digit {
+    border-color: #DC143C;
+    color: #DC143C;
+}
+
+.red-digit:focus {
+    border-color: #B22222;
+    box-shadow: 0 0 15px rgba(220, 20, 60, 0.5);
+    background: rgba(220, 20, 60, 0.1);
+}
+
+.pink-digit {
+    border-color: #DA70D6;
+    color: #DA70D6;
+}
+
+.pink-digit:focus {
+    border-color: #BA55D3;
+    box-shadow: 0 0 15px rgba(218, 112, 214, 0.5);
+    background: rgba(218, 112, 214, 0.1);
+}
+
+/* Effet de confetti */
+.confetti-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+.confetti {
+    position: absolute;
+    top: -10px;
+    opacity: 0.8;
+    animation: confetti-fall linear forwards;
+}
+
+@keyframes confetti-fall {
+    0% {
+        transform: translateY(-10px) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* Animation optimisée pour mobile */
+@media (max-width: 768px) {
+    .confetti {
+        animation-duration: 2.5s !important;
+    }
+}
 }
 
 .code-input {
