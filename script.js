@@ -4,13 +4,13 @@ var _0x3c4d = [4, 8, 2];
 var _0x5e6f = function() { return _0x3c4d.map(_0x1a2b).join(''); };
 
 // Lien WhatsApp crypté (Base64 simple)
-var _0x7g8h = 'aHR0cHM6Ly9jaGF0LndoYXRzYXBwLmNvbS9JUGJnQXM5SmdXbkxXb09QS0NSQlY2';
+var _0x7g8h = 'aHR0cHM6Ly9jaGF0LndoYXRzYXBwLmNvbS9CbjFNeFVidHRjUzVOdDFaU2NVWVB0';
 var _0x9i0j = function() {
     try {
         return atob(_0x7g8h);
     } catch(e) {
         console.error('Erreur de décryptage:', e);
-        return 'https://chat.whatsapp.com/IPbgAs9JgWnLWoOPKCRBV6';
+        return 'https://chat.whatsapp.com/Bn1MxUbttcS5Nt1ZScUZPt';
     }
 };
 
